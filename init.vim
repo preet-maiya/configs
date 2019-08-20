@@ -47,9 +47,13 @@ Plug 'osyo-manga/vim-anzu'
 Plug 'dyng/ctrlsf.vim'
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'tpope/vim-repeat'
+Plug 'tommcdo/vim-exchange'
 Plug 'machakann/vim-highlightedyank'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-
+Plug 'mbbill/undotree'
+Plug 'junegunn/vim-peekaboo'
+Plug 'xolox/vim-session'
+Plug 'xolox/vim-misc'
 
 " Vim only plugins
 if !has('nvim')
@@ -79,12 +83,12 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } " Markdown syntax highligh
 "Plug 'rodjek/vim-puppet'                       " Puppet syntax highlighting
 "Plug 'tclh123/vim-thrift'                      " Thrift syntax highlighting
 Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go' }      " Go auto completion
-Plug 'zchee/deoplete-jedi', { 'for': 'python'}                     " Go auto completion
+Plug 'zchee/deoplete-jedi', { 'for': 'python3'}                     " Go auto completion
 Plug 'zimbatm/haproxy.vim'                     " HAProxy syntax highlighting
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-"Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
+Plug 'davidhalter/jedi-vim', { 'for': 'python3' }
+"Plug 'tmhedberg/SimpylFold', { 'for': 'python3' }
 Plug 'elzr/vim-json', { 'for': ['json', 'markdown'] }
-Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python3' }
 Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
 Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': 'markdown' }
 " Colorschemes
@@ -234,8 +238,8 @@ nnoremap <C-S-Down> <C-W><Down>
 nnoremap <C-S-Up> <C-W><Up>
 
 " Resize panes
-nnoremap <leader>+ :vertical resize +5<cr>
-nnoremap <leader>- :vertical resize -5<cr>
+nnoremap <silent> <leader>+ :vertical resize +5<cr>
+nnoremap <silent> <leader>- :vertical resize -5<cr>
 
 " ... but skip the quickfix when navigating
 augroup qf
@@ -263,12 +267,12 @@ set splitbelow
 set splitright
 
 " Creating splits
-nnoremap <leader>v :vsplit<cr>
-nnoremap <leader>h :split<cr>
+nnoremap <silent> <leader>v :vsplit<cr>
+nnoremap <silent> <leader>h :split<cr>
 
 " Closing splits
-nnoremap <leader>q :close<cr>
-nnoremap <leader>Q :q!<cr>
+nnoremap <silent> <leader>q :close<cr>
+nnoremap <silent> <leader>Q :q!<cr>
 
 "----------------------------------------------
 " Plugin: MattesGroeger/vim-bookmarks
@@ -418,6 +422,13 @@ let g:calendar_view = "days"                  " Set days as the default view
 nnoremap <c-p> :FZF<cr>
 
 "----------------------------------------------
+" Plugin: 'xolox/vim-misc'
+"----------------------------------------------
+" Autosave off
+let g:session_autosave = 'no'
+
+
+"----------------------------------------------
 " Plugin: 'majutsushi/tagbar'
 "----------------------------------------------
 " Add shortcut for toggling the tag bar
@@ -466,7 +477,7 @@ let g:vim_markdown_toc_autofit = 1
 " Plugin: rbgrouleff/bclose.vim
 "----------------------------------------------
 " Close buffers
-nnoremap <leader>w :Bclose<cr>
+nnoremap <silent> <leader>w :Bclose<cr>
 
 "----------------------------------------------
 " Plugin: mileszs/ack.vim
