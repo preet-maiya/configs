@@ -238,8 +238,10 @@ nnoremap <C-S-Down> <C-W><Down>
 nnoremap <C-S-Up> <C-W><Up>
 
 " Resize panes
-nnoremap <silent> <leader>+ :vertical resize +5<cr>
-nnoremap <silent> <leader>- :vertical resize -5<cr>
+nnoremap <silent> <A-Up> :resize +5<cr>
+nnoremap <silent> <A-Down> :resize -5<cr>
+nnoremap <silent> <A-Right> :vertical resize -5<cr>
+nnoremap <silent> <A-Left> :vertical resize +5<cr>
 
 " ... but skip the quickfix when navigating
 augroup qf
@@ -426,7 +428,7 @@ nnoremap <c-p> :FZF<cr>
 "----------------------------------------------
 " Autosave off
 let g:session_autosave = 'no'
-
+let g:session_autoload = 'no'
 
 "----------------------------------------------
 " Plugin: 'majutsushi/tagbar'
@@ -637,6 +639,9 @@ let g:go_gocode_propose_source=1
 
 " Set whether the JSON tags should be snakecase or camelcase.
 let g:go_addtags_transform = "snakecase"
+
+" Set gopath
+let g:go_bin_path = $HOME."/go/bin"
 "----------------------------------------------
 " Language: apiblueprint
 "----------------------------------------------
