@@ -83,7 +83,9 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } " Markdown syntax highligh
 "Plug 'rodjek/vim-puppet'                       " Puppet syntax highlighting
 "Plug 'tclh123/vim-thrift'                      " Thrift syntax highlighting
 Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go' }      " Go auto completion
-Plug 'zchee/deoplete-jedi', { 'for': 'python3'}                     " Go auto completion
+"Plug 'zchee/deoplete-jedi', { 'for': 'python3'}                     " Go auto completion
+Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python3'}                     " Go auto completion
+Plug 'ambv/black', {'for': 'python3'}
 Plug 'zimbatm/haproxy.vim'                     " HAProxy syntax highlighting
 Plug 'davidhalter/jedi-vim', { 'for': 'python3' }
 "Plug 'tmhedberg/SimpylFold', { 'for': 'python3' }
@@ -98,6 +100,7 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'kaicataldo/material.vim'
 Plug 'rakr/vim-one'
 Plug 'whatyouhide/gotham'
+Plug 'ludovicchabant/vim-gutentags'
 
 call plug#end()
 
@@ -123,7 +126,7 @@ set nowrap
 set noerrorbells                  " No bells!
 set novisualbell                  " I said, no bells!
 set number                        " show number ruler
-" set relativenumber                " show relative numbers in the ruler
+set relativenumber                " show relative numbers in the ruler
 set ruler
 set formatoptions=tcqronj         " set vims text formatting options
 set softtabstop=2
@@ -160,7 +163,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " Center the screen quickly
 " nnoremap <space> zz
-inoremap jk <ESC>
 
 "----------------------------------------------
 " Colors
@@ -242,6 +244,10 @@ nnoremap <silent> <A-Up> :resize +5<cr>
 nnoremap <silent> <A-Down> :resize -5<cr>
 nnoremap <silent> <A-Right> :vertical resize -5<cr>
 nnoremap <silent> <A-Left> :vertical resize +5<cr>
+
+" Resolve conflicts
+nnoremap <leader>dg3 :diffget //3 <bar> diffupdate<cr>
+nnoremap <leader>dg2 :diffget //2 <bar> diffupdate<cr>
 
 " ... but skip the quickfix when navigating
 augroup qf
@@ -770,6 +776,9 @@ au FileType python set shiftwidth=4
 au FileType python set softtabstop=4
 au FileType python set tabstop=4
 au Filetype python let g:neomake_python_enabled_makers = ['flake8']
+au Filetype python let g:neomake_python_flake8_maker = {
+                        \ 'args': ['--max-line-length=120']
+                        \}
 au FileType python call neomake#configure#automake('nrwi', 500)
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
