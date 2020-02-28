@@ -4,7 +4,7 @@ set -x
 
 DISTRIBUTION=$(grep -wh ID /etc/*-release | cut -d"=" -f2)
 
-	if [ $DISTRIBUTION = "ubuntu" ]
+	if [ $DISTRIBUTION = "ubuntu" ] || [ $DISTRIBUTION = "debian" ]
 	then
 	  INSTALL="apt install -y"
 	fi
@@ -14,7 +14,7 @@ DISTRIBUTION=$(grep -wh ID /etc/*-release | cut -d"=" -f2)
 	  INSTALL="pacman -Sy"
 	fi
 
-	if [ $DISTRIBUTION = "redhat" ] && [ $DISTRIBUTION = "centos" ]
+	if [ $DISTRIBUTION = "redhat" ] || [ $DISTRIBUTION = "centos" ]
 	then
 	  INSTALL="yum install -y"
 	fi
