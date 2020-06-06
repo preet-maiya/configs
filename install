@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -x
+
+DISTRIBUTION=$(grep -wh ID /etc/*-release | cut -d"=" -f2)
+
+	if [ $DISTRIBUTION = "ubuntu" ] || [ $DISTRIBUTION = "debian" ]
+	then
+	  INSTALL="apt install -y"
+	fi
+
+	if [ $DISTRIBUTION = "arch" ]
+	then
+	  INSTALL="pacman -Sy"
+	fi
+
+	if [ $DISTRIBUTION = "redhat" ] || [ $DISTRIBUTION = "centos" ] || [ $DISTRIBUTION = "fedora" ]
+	then
+	  INSTALL="yum install -y"
+	fi
+
+$INSTALL $1
+
