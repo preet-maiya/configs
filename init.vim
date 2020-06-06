@@ -18,13 +18,14 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'  " Default snippets for many languages
 Plug 'bling/vim-airline'
+Plug 'jremmen/vim-ripgrep'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'          " CtrlP is installed to support tag finding in vim-go
 Plug 'editorconfig/editorconfig-vim'
 Plug 'itchyny/calendar.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
+Plug 'junegunn/goyo.vim' "{ 'for': 'markdown' }
 Plug 'majutsushi/tagbar', { 'on': ['TagbarToggle', 'TagbarOpen'] }
 Plug 'mhinz/vim-signify'
 Plug 'mileszs/ack.vim'
@@ -54,6 +55,8 @@ Plug 'mbbill/undotree'
 Plug 'junegunn/vim-peekaboo'
 Plug 'xolox/vim-session'
 Plug 'xolox/vim-misc'
+Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'yuttie/comfortable-motion.vim'
 
 " Vim only plugins
 if !has('nvim')
@@ -100,7 +103,11 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'kaicataldo/material.vim'
 Plug 'rakr/vim-one'
 Plug 'whatyouhide/gotham'
+Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'morhetz/gruvbox'
+Plug 'tomasr/molokai'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
 call plug#end()
 
@@ -161,6 +168,8 @@ let mapleader = ' '
 " Remove trailing white spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
 
+" Set line wrap
+set wrap linebreak nolist
 " Center the screen quickly
 " nnoremap <space> zz
 
@@ -190,7 +199,23 @@ let ayucolor = 'dark'
 " One colorscheme settings
 let g:one_allow_italics = 1
 
-colorscheme gotham
+"---------------------------------------------
+" onehalf Configuration
+"---------------------------------------------
+syntax on
+set t_Co=256
+set cursorline
+colorscheme gruvbox
+" let g:airline_theme='gruvbox'
+" lightline
+" let g:lightline.colorscheme='onehalfdark'"
+
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
 
 " Override the search highlight color with a combination that is easier to
 " read. The default PaperColor is dark green backgroun with black foreground.
@@ -240,10 +265,10 @@ nnoremap <C-S-Down> <C-W><Down>
 nnoremap <C-S-Up> <C-W><Up>
 
 " Resize panes
-nnoremap <silent> <A-Up> :resize +5<cr>
-nnoremap <silent> <A-Down> :resize -5<cr>
-nnoremap <silent> <A-Right> :vertical resize -5<cr>
-nnoremap <silent> <A-Left> :vertical resize +5<cr>
+nnoremap <silent> <C-Up> :resize +5<cr>
+nnoremap <silent> <C-Down> :resize -5<cr>
+nnoremap <silent> <C-Right> :vertical resize -5<cr>
+nnoremap <silent> <C-Left> :vertical resize +5<cr>
 
 " Resolve conflicts
 nnoremap <leader>dg3 :diffget //3 <bar> diffupdate<cr>
@@ -254,6 +279,11 @@ augroup qf
     autocmd!
     autocmd FileType qf set nobuflisted
 augroup END
+
+" Quickfix Navigation
+map <C-j> :cn<CR>
+map <C-k> :cp<CR>
+map <leader>qf :cclose<CR>
 
 " Fix some common typos
 cnoreabbrev W! w!
@@ -505,7 +535,7 @@ let g:neomake_info_sign    = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
 "----------------------------------------------
 " Plugin: scrooloose/nerdtree
 "----------------------------------------------
-nnoremap <leader>d :NERDTreeToggle<cr>
+" nnoremap <leader>d :NERDTreeToggle<cr>
 nnoremap <F2> :NERDTreeToggle<cr>
 
 " Files to ignore
@@ -583,6 +613,11 @@ let g:deoplete#sources#go#pointer = 1
 let g:deoplete#sources#go#unimported_packages = 0
 
 
+"----------------------------------------------
+" Plugin: majutsushi/tagbar
+"----------------------------------------------
+nmap <F8> :TagbarToggle<CR>
+
 
 "----------------------------------------------
 " Language: Golang
@@ -609,6 +644,7 @@ au FileType go nmap <leader>gdv <Plug>(go-def-vertical)
 au FileType go nmap <leader>gdh <Plug>(go-def-split)
 au FileType go nmap <leader>gD <Plug>(go-doc)
 au FileType go nmap <leader>gDv <Plug>(go-doc-vertical)
+au FileType go nmap <leader>i :GoImplements<CR>
 
 " Run goimports when running gofmt
 let g:go_fmt_command = "goimports"
@@ -648,6 +684,15 @@ let g:go_addtags_transform = "snakecase"
 
 " Set gopath
 let g:go_bin_path = $HOME."/go/bin"
+
+" Set fo implements to gopls
+let g:go_implements_mode = 'gopls'
+
+" Set windows for debug
+let g:go_debug_windows = {
+      \ 'vars':       'rightbelow 60vnew',
+      \ 'stack':      'rightbelow 10new',
+      \ }
 "----------------------------------------------
 " Language: apiblueprint
 "----------------------------------------------
