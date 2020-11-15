@@ -11,7 +11,7 @@ DISTRIBUTION=$(grep -wh ID /etc/*-release | cut -d"=" -f2)
 
 	if [ $DISTRIBUTION = "arch" ]
 	then
-	  INSTALL="pacman -Sy"
+	  INSTALL="pacman -Sy --noconfirm"
 	fi
 
 	if [ $DISTRIBUTION = "redhat" ] || [ $DISTRIBUTION = "centos" ] || [ $DISTRIBUTION = "fedora" ]
